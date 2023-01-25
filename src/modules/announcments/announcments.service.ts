@@ -70,6 +70,55 @@ export class AnnouncmentsService {
         }
     }
 
+    async likeComment({ _id, username, index } : { _id: string, username: string, index: number }) {
+        try {
+            const announcment = await this.announcmentModel.findOne({ _id }).exec()
+
+            const newComments = announcment.comments
+            newComments.at(index).likes.push(username)
+
+            const data = await announcment.updateOne({
+                comments: newComments
+            })
+
+            return {
+                status:'succes',
+                message: 'Announcment edited succesfully',
+                data
+            }
+        } catch(err) {
+            return {
+                status: 'error',
+                message: `Announcment editng error: ${err.message}`
+            }
+        }
+    }
+
+    async disLikeComment({ _id, username, index } : { _id: string, username: string, index: number }) {
+        try {
+            const announcment = await this.announcmentModel.findOne({ _id }).exec()
+
+            const newComments = announcment.comments
+            const newLikes = announcment.comments.at(index).likes.filter(like => like !== username)
+            newComments.at(index).likes = newLikes
+
+            const data = await announcment.updateOne({
+                comments: newComments
+            })
+
+            return {
+                status:'succes',
+                message: 'Announcment edited succesfully',
+                data
+            }
+        } catch(err) {
+            return {
+                status: 'error',
+                message: `Announcment editng error: ${err.message}`
+            }
+        }
+    }
+
     async like(_id: string, username: string): Promise<Response<AnnouncmentInterface>> {
         try {
             const announcment = await this.announcmentModel.findOne({ _id }).exec()

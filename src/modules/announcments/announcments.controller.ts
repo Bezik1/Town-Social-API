@@ -22,6 +22,16 @@ export class AnnouncmentsController {
         return await this.announcmentsService.disLike(_id, username)
     }
 
+    @Post('disLikeComment')
+    public async disLikeComment(@Body() body: { _id: string, index: number, username: string }) {
+        return await this.announcmentsService.disLikeComment(body)
+    }
+
+    @Post('likeComment')
+    public async likeComment(@Body() body: { _id: string, index: number, username: string }) {
+        return await this.announcmentsService.likeComment(body)
+    }
+
     @Post('addComment/:id')
     public async addComment(@Param('id') _id: string, @Body() comment: CreateCommentDto) {
         return await this.announcmentsService.addComment(_id, comment)
