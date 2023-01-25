@@ -26,9 +26,9 @@ export class UsersController {
         return this.userService.addPhoto(file)
     }
 
-    @Get('getPhoto/:id')
-    public async getPhoto(@Param('id') id: string) {
-        return this.userService.getPhoto(id)
+    @Get('getPhoto/:username')
+    public async getPhoto(@Param('username') username: string) {
+        return this.userService.getPhoto(username)
     }
 
     @Post('changePhoto/:id')

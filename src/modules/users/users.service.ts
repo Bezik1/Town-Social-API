@@ -33,9 +33,9 @@ export class UsersService {
         }
     }
 
-    public async getPhoto(_id: string) {
+    public async getPhoto(username: string) {
         try {
-            const user = await this.userModel.findOne({ _id }).exec()
+            const user = await this.userModel.findOne({ username }).exec()
             const buffer = await readFile(user.picturePath)
             const data = buffer.toString('base64')
 
