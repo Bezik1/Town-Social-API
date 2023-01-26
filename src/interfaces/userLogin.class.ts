@@ -6,4 +6,6 @@ export class UserLogin {
 
     @IsNotEmpty()
     password: string
+
+    device: string
 }

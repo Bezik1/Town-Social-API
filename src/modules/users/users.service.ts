@@ -52,15 +52,18 @@ export class UsersService {
         }
     }
 
+
+
     public async create(createUserDto: CreateUserDto): Promise<Response<User>> {
         try {
-            const { username, email, password } = createUserDto
+            const { username, email, password, loggined } = createUserDto
 
             const salt = +process.env.SALT
             const hashedPassword = await hash(password, salt)
 
             const data = new this.userModel<UserInterface>({
                 username,
+                loggined: loggined,
                 email,
                 roles: [Role.User],
                 picturePath: '',
@@ -136,7 +139,7 @@ export class UsersService {
     public async editById(_id: string, editUserDto: UserInterface): Promise<Response<User>> {
         try {
             const user = await this.userModel.findOne({ _id }).exec()
-            const { username, email, roles, password } = editUserDto
+            const { username, email, roles, password, loggined } = editUserDto
 
             const salt = await genSalt(+process.env.SALT_ROUNDS)
             const hashedPassword = await hash(password, salt)
@@ -144,6 +147,7 @@ export class UsersService {
             const data = await user.update({
                     username,
                     email,
+                    loggined,
                     picturePath: user.picturePath || '',
                     roles,
                     password: hashedPassword,
@@ -204,9 +208,55 @@ export class UsersService {
         }
     }
 
-    public async login(user: UserLogin): Promise<Response<User>> {
+    public async ifLoggined(device: string) {
         try {
-            const { email, password } = user
+            const users = await this.userModel.find().exec()
+    
+            const ifLDevice = users.some(user => user.loggined.device === device && user.loggined.status)
+
+            if(ifLDevice) {
+                return {
+                    status: 'succes',
+                    message: `User got succesfully`,
+                    data:  await this.userModel.findOne({ loggined: { device: device, status: true } }).exec()
+                }
+            } else {
+                return {
+                    status: 'error',
+                    message: `User getting error`,
+                }
+            }
+        } catch(err) {
+            return {
+                status: 'error',
+                message: `User getting error: ${err.message}`,
+            }
+        }
+    }
+
+    public async logout(_id: string) {
+        try {
+            const user = this.userModel.findOne({ _id })
+            const loggined = { device: '', status: false }
+
+            const data = user.updateOne({ loggined })
+
+            return { 
+                status: 'succes', 
+                message: 'User logged out succesfully',
+                data
+            }
+        } catch(err) {
+            return {
+                status: 'error',
+                message: `User getting error: ${err.message}`
+            }
+        }
+    }
+
+    public async login(user: UserLogin) {
+        try {
+            const { email, password, device } = user
             const fetchedUser = await this.userModel.findOne({ email })
 
             const ifPassword = compareSync(password, fetchedUser.password)
@@ -218,8 +268,11 @@ export class UsersService {
                 case (ifEmail === false):
                     return { status: 'error', message: 'Incorrect email'}
                 case (ifPassword && ifEmail):
-                    return { status: 'succes', message: 'User loggined succesfully', data: 
-                    await this.userModel.findOne({ _id: fetchedUser._id })}
+                    const user = this.userModel.findOne({ _id: fetchedUser._id })
+                    const loggined = { device: device, status: true }
+                    const data = user.updateOne({ loggined })
+                    
+                    return { status: 'succes', message: 'User loggined succesfully', data}
                 default:
                     return { status: 'error', message: 'Logging error'}
             }

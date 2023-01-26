@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { minLength } from 'class-validator';
 import { Document } from 'mongoose';
 import { Role } from 'src/constans';
+import { Loggined } from 'src/interfaces/loggined.interface';
 export type UserDocument = User & Document;
 
 @Schema()
@@ -23,6 +23,9 @@ export class User extends Document {
     enum: Role,
   }])
   roles: string[]
+
+  @Prop()
+  loggined: Loggined
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

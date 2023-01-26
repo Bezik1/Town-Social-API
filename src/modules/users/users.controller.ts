@@ -31,6 +31,16 @@ export class UsersController {
         return this.userService.getPhoto(username)
     }
 
+    @Post('ifLoggined')
+    public async ifLoggined(@Body() data: { device: string } ) {
+        return await this.userService.ifLoggined(data.device)
+    }
+
+    @Post('logout/:id')
+    public async logout(@Param('id') _id: string) {
+        return await this.userService.logout(_id)
+    }
+
     @Post('changePhoto/:id')
     public async changePhoto(@Param('id') _id: string, @Body() path: { path: string } ) {
         return await this.userService.changePhoto(_id, path.path)
