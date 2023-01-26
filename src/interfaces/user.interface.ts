@@ -1,6 +1,6 @@
 import { IsArray, IsEmail, IsString, IsStrongPassword, Length } from 'class-validator';
 import { Role } from 'src/constans';
-import { Loggined } from './loggined.interface';
+import { Loggined, LogginedINterface } from './loggined.interface';
 
 export class UserInterface {
     @IsString()
@@ -37,5 +37,5 @@ export class CreateUserDto {
     //@IsStrongPassword()
     password: string
 
-    loggined: Loggined
+    loggined: LogginedINterface
 }

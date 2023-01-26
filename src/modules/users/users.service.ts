@@ -236,10 +236,10 @@ export class UsersService {
 
     public async logout(_id: string) {
         try {
-            const user = this.userModel.findOne({ _id })
-            const loggined = { device: '', status: false }
-
-            const data = user.updateOne({ loggined })
+            const data = await this.userModel.findOneAndUpdate<User>(
+                { _id }, 
+                { $set: { "loggined": { "device": "", "status": false } } }
+            )
 
             return { 
                 status: 'succes', 
@@ -268,9 +268,11 @@ export class UsersService {
                 case (ifEmail === false):
                     return { status: 'error', message: 'Incorrect email'}
                 case (ifPassword && ifEmail):
-                    const user = this.userModel.findOne({ _id: fetchedUser._id })
-                    const loggined = { device: device, status: true }
-                    const data = user.updateOne({ loggined })
+                    console.log(user)
+                    const data = await this.userModel.findOneAndUpdate<User>(
+                        { _id: fetchedUser._id  }, 
+                        { $set: { "loggined": { "device": device, "status": true } } }
+                    )
                     
                     return { status: 'succes', message: 'User loggined succesfully', data}
                 default:

@@ -7,5 +7,7 @@ export class UserLogin {
     @IsNotEmpty()
     password: string
 
+    @IsString()
+    @IsNotEmpty()
     device: string
 }
