@@ -268,7 +268,6 @@ export class UsersService {
                 case (ifEmail === false):
                     return { status: 'error', message: 'Incorrect email'}
                 case (ifPassword && ifEmail):
-                    console.log(user)
                     const data = await this.userModel.findOneAndUpdate<User>(
                         { _id: fetchedUser._id  }, 
                         { $set: { "loggined": { "device": device, "status": true } } }

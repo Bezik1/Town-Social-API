@@ -1,6 +1,7 @@
 export class Comment {
     author: string
     content: string
+    responses?: Comment[]
     likes: string[]
 }
 

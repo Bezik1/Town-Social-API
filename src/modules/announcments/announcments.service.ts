@@ -183,13 +183,116 @@ export class AnnouncmentsService {
         }
     }
 
+    async deleteResponse({ _id, resIndex, index } : { _id: string, resIndex: number, index: number }) {
+        try {
+            const announcment = await this.announcmentModel.findOne({ _id }).exec()
+            const updatedComment = { 
+                ...announcment.comments.at(index),
+                responses: announcment.comments.at(index).responses.filter((res, i) => i !== resIndex)
+            }
+
+            const data = await announcment.updateOne({
+                comments: [...announcment.comments.filter((comment, i) => i !== index), updatedComment]
+            })
+
+            return {
+                status:'succes',
+                message: 'Comment added succesfully',
+                data
+            }
+        } catch(err) {
+            return {
+                status: 'error',
+                message: `Comment adding error: ${err.message}`
+            }
+        }
+    }
+
+    async likeResponse({ _id, username, resIndex, index } : { _id: string, username: string, resIndex: number, index: number }) {
+        try {
+            const announcment = await this.announcmentModel.findOne({ _id }).exec()
+            const response = announcment.comments.at(index).responses.at(resIndex)
+            const updatedComment = { 
+                ...announcment.comments.at(index),
+                responses: [...announcment.comments.at(index).responses.filter((res, i) => i !== resIndex), 
+                    { ...response, likes: [...response.likes, username] }] 
+            }
+
+            const data = await announcment.updateOne({
+                comments: [...announcment.comments.filter((comment, i) => i !== index), updatedComment]
+            })
+
+            return {
+                status:'succes',
+                message: 'Comment added succesfully',
+                data
+            }
+        } catch(err) {
+            return {
+                status: 'error',
+                message: `Comment adding error: ${err.message}`
+            }
+        }
+    }
+
+    async disLikeResponse({ _id, username, resIndex, index } : { _id: string, username: string, resIndex: number, index: number }) {
+        try {
+            const announcment = await this.announcmentModel.findOne({ _id }).exec()
+            const response = announcment.comments.at(index).responses.at(resIndex)
+            const updatedComment = { 
+                ...announcment.comments.at(index),
+                responses: [...announcment.comments.at(index).responses.filter((res, i) => i !== resIndex), 
+                    { ...response, likes: response.likes.filter(like => like !== username) }] 
+            }
+
+            const data = await announcment.updateOne({
+                comments: [...announcment.comments.filter((comment, i) => i !== index), updatedComment]
+            })
+
+            return {
+                status:'succes',
+                message: 'Comment added succesfully',
+                data
+            }
+        } catch(err) {
+            return {
+                status: 'error',
+                message: `Comment adding error: ${err.message}`
+            }
+        }
+    }
+
+    async responseToComment({ _id, comment, index } : { _id: string, comment: CreateCommentDto, index: number }) {
+        try {
+            const announcment = await this.announcmentModel.findOne({ _id }).exec()
+            const responses = [...announcment.comments.at(index).responses, {...comment, likes: []}]
+            const updatedComment = { ...announcment.comments.at(index), responses }
+
+            const data = await announcment.updateOne({
+                comments: [...announcment.comments.filter((comment, i) => i !== index), updatedComment]
+            })
+
+            return {
+                status:'succes',
+                message: 'Comment added succesfully',
+                data
+            }
+        } catch(err) {
+            return {
+                status: 'error',
+                message: `Comment adding error: ${err.message}`
+            }
+        }
+    }
+
     async addComment(_id: string, comment: CreateCommentDto): Promise<Response<AnnouncmentInterface>> {
         try {
             const announcment = await this.announcmentModel.findOne({ _id }).exec()
 
             const newComment: Comment = {
                 ...comment,
-                likes: []
+                likes: [],
+                responses: []
             }
 
             const data = await announcment.updateOne({
