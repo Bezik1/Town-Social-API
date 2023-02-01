@@ -32,6 +32,6 @@ const bootstrap = async () =>{
   app.enableCors();
   app.use(helmet())
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
