@@ -1,7 +1,6 @@
 {
     "version": 2,
     "buildCommand": "env-cmd nest build",
-    "cleanUrls": true,
     "routes": [
         {
             "src": "/(.*)",
