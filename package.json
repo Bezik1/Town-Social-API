@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "env-cmd nest build --output public",
+    "build": "env-cmd nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "env-cmd nest start",
     "start:dev": "env-cmd nest start --watch",
