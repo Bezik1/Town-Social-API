@@ -1,11 +1,7 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "src/main.ts",
-            "use": "@vercel/node"
-        }
-    ],
+    "buildCommand": "env-cmd nest build",
+    "cleanUrls": true,
     "routes": [
         {
             "src": "/(.*)",
