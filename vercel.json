@@ -1,5 +1,9 @@
 {
     "version": 2,
+    "env": {
+        "API_LINK": "mongodb+srv://Bezik12:1011fajeruw@cluster0.tpzjl.mongodb.net/react-native-social-app",
+        "SALT": "$2b$12$v38KOyF2WSaJI/wcxSKN6u1iyvjfOu.Tjs3QHKCW2O4nCt0rTUgMu"
+    },
     "builds": [
         {
             "src": "src/main.ts",
