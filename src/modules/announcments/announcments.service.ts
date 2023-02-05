@@ -210,7 +210,7 @@ export class AnnouncmentsService {
 
     async likeResponse({ _id, username, resIndex, index } : { _id: string, username: string, resIndex: number, index: number }) {
         try {
-            const announcment = await this.announcmentModel.findOne({ _id }).exec()
+            const announcment = await this.announcmentModel.findOne({ _id })
             const response = announcment.comments[index].responses[resIndex]
             const updatedComment = { 
                 ...announcment.comments.at(index),
@@ -237,7 +237,7 @@ export class AnnouncmentsService {
 
     async disLikeResponse({ _id, username, resIndex, index } : { _id: string, username: string, resIndex: number, index: number }) {
         try {
-            const announcment = await this.announcmentModel.findOne({ _id }).exec()
+            const announcment = await this.announcmentModel.findOne({ _id })
             const response = announcment.comments[index].responses[resIndex]
             const updatedComment = { 
                 ...announcment.comments.at(index),
@@ -264,7 +264,7 @@ export class AnnouncmentsService {
 
     async responseToComment({ _id, comment, index } : { _id: string, comment: CreateCommentDto, index: number }) {
         try {
-            const announcment = await this.announcmentModel.findOne({ _id }).exec()
+            const announcment = await this.announcmentModel.findOne({ _id })
             const responses = [...announcment.comments[index].responses, {...comment, likes: []}]
             const updatedComment = { ...announcment.comments[index], responses }
 
