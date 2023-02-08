@@ -75,7 +75,7 @@ export class AnnouncmentsService {
             const announcment = await this.announcmentModel.findOne({ _id }).exec()
 
             const newComments = announcment.comments
-            newComments.at(index).likes.push(username)
+            newComments[index].likes.push(username)
 
             const data = await announcment.updateOne({
                 comments: newComments
@@ -99,8 +99,8 @@ export class AnnouncmentsService {
             const announcment = await this.announcmentModel.findOne({ _id }).exec()
 
             const newComments = announcment.comments
-            const newLikes = announcment.comments.at(index).likes.filter(like => like !== username)
-            newComments.at(index).likes = newLikes
+            const newLikes = announcment.comments[index].likes.filter(like => like !== username)
+            newComments[index].likes = newLikes
 
             const data = await announcment.updateOne({
                 comments: newComments
@@ -213,7 +213,7 @@ export class AnnouncmentsService {
             const announcment = await this.announcmentModel.findOne({ _id })
             const response = announcment.comments[index].responses[resIndex]
             const updatedComment = { 
-                ...announcment.comments.at(index),
+                ...announcment.comments[index],
                 responses: [...announcment.comments[index].responses.filter((res, i) => i !== resIndex), 
                     { ...response, likes: [...response.likes, username] }] 
             }
@@ -240,7 +240,7 @@ export class AnnouncmentsService {
             const announcment = await this.announcmentModel.findOne({ _id })
             const response = announcment.comments[index].responses[resIndex]
             const updatedComment = { 
-                ...announcment.comments.at(index),
+                ...announcment.comments[index],
                 responses: [...announcment.comments[index].responses.filter((res, i) => i !== resIndex), 
                     { ...response, likes: response.likes.filter(like => like !== username) }] 
             }
