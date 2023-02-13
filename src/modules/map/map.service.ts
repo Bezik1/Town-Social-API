@@ -12,9 +12,11 @@ export class MapService {
 
     async create(createCoordinate: CoordinateInterface): Promise<Response<CoordinateInterface>> {
         try {
-            const { latitude, longitude, description, role } = createCoordinate
+            const { latitude, longitude, description, role, author, title } = createCoordinate
 
             const data = new this.coordinateModel<CoordinateInterface>({
+                author, 
+                title,
                 latitude, 
                 longitude,
                 description,
@@ -71,11 +73,13 @@ export class MapService {
     async editById(_id: string, editUserDto: CoordinateInterface): Promise<Response<CoordinateInterface>> {
         try {
             const user = await this.coordinateModel.findOne({ _id }).exec()
-            const { longitude, latitude, description, role } = editUserDto
+            const { longitude, latitude, description, role, author, title } = editUserDto
 
             const data = await user.update({
+                author,
                 longitude,
                 latitude,
+                title,
                 description,
                 role,
             })

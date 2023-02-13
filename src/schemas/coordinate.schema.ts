@@ -17,6 +17,12 @@ export class Coordinate extends Document {
     })
     role: string
 
+    @Prop()
+    author: string
+
+    @Prop()
+    title: string
+
     @Prop({ required: true })
     description: string
 }
