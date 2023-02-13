@@ -4,6 +4,14 @@ export enum Role {
     PublicService = 'Public Service'
 }
 
+export enum CoordinateRole {
+    Home = 'Dom',
+    WorkPlace = 'Miejsce Pracy',
+    Pool = 'Basen',
+    Accident = 'Wypadek',
+    TrafficJam = 'Korek'
+}
+
 export enum Rang {
     Emergency = 'Emergency',
     Casual = 'Casual',

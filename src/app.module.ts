@@ -8,6 +8,7 @@ import { AnnouncmentsController } from './modules/announcments/announcments.cont
 import { AnnouncmentsModule } from './modules/announcments/announcments.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MapModule } from './modules/map/map.module';
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.API_LINK),
@@ -17,6 +18,7 @@ import { AppService } from './app.service';
     }),
     UsersModule,
     AnnouncmentsModule,
+    MapModule,
   ],
   controllers: [AppController],
   providers: [
