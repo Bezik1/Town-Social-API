@@ -312,13 +312,12 @@ export class AnnouncmentsService {
         }
     }
 
-    async editById(id: string, editUserDto: AnnouncmentInterface): Promise<Response<AnnouncmentInterface>> {
+    async editById(_id: string, editUserDto: AnnouncmentInterface): Promise<Response<AnnouncmentInterface>> {
         try {
-            const user = await this.announcmentModel.findOne({ _id: id}).exec()
-            const { author, content, rang, date, comments, likes, _id } = editUserDto
+            const user = await this.announcmentModel.findOne({ _id}).exec()
+            const { author, content, rang, date, comments, likes } = editUserDto
 
             const data = await user.update({
-                    _id,
                     author,
                     content,
                     rang,
