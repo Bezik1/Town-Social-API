@@ -60,7 +60,7 @@ export class UsersController {
     }
 
     @Put(':id')
-    @Roles(Role.Admin)
+    //@Roles(Role.Admin)
     public async editUser(@Param('id') id: string, @Body() editUserDto: UserInterface) {
         return await this.userService.editById(id, editUserDto)
     }
