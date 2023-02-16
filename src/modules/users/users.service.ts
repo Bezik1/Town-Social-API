@@ -139,7 +139,7 @@ export class UsersService {
     public async editById(_id: string, editUserDto: UserInterface): Promise<Response<User>> {
         try {
             const user = await this.userModel.findOne({ _id }).exec()
-            const { username, email, roles, password, loggined } = editUserDto
+            const { username, email, roles, password, loggined, picturePath } = editUserDto
 
             const salt = await genSalt(+process.env.SALT_ROUNDS)
             const hashedPassword = await hash(password, salt)
@@ -148,6 +148,7 @@ export class UsersService {
                     username,
                     email,
                     loggined,
+		    picturePath, 
                     picturePath: user.picturePath || '',
                     roles,
                     password: hashedPassword,
