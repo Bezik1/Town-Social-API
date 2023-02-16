@@ -148,8 +148,7 @@ export class UsersService {
                     username,
                     email,
                     loggined,
-		    picturePath, 
-                    picturePath: user.picturePath || '',
+                    picturePath,
                     roles,
                     password: hashedPassword,
                 })
