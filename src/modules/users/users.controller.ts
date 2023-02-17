@@ -65,7 +65,7 @@ export class UsersController {
         return await this.userService.editById(id, editUserDto)
     }
 
-    @Delete(':id')
+    @Post(':id')
     @Roles(Role.Admin)
     public async deleteUser(@Param('id') id: string) {
         return await this.userService.deleteById(id)
