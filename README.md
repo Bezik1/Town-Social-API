@@ -25,4 +25,3 @@ Link: [Doc Admin Panel](https://github.com/Bezik1/doc-admin-panel/)
 <p align="center">
  <img src="/assets/logo.png" width="71" alt="Doc Social Logo" />
 </p>
-
