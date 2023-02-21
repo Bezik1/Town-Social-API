@@ -21,7 +21,3 @@ Data of this application is monitoring by app build by
 Link: [Doc Admin Panel](https://github.com/Bezik1/doc-admin-panel/)
 
 ## :robot: Hosting [Render](https://render.com)
-
-<p align="center">
- <img src="/assets/logo.png" width="71" alt="Doc Social Logo" />
-</p>
