@@ -1,4 +1,5 @@
 # Town Social REST API :earth_africa:
+REST API of Town Social App with order to respond to request from application
 
 ## :dart: Install Dependencies
 Type in console `yarn install`
