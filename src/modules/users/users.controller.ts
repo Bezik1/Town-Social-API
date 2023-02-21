@@ -72,6 +72,7 @@ export class UsersController {
     }
 
     @Post('login')
+    @Roles(Role.Anybody)
     public async login(@Body() user: UserLogin) {
         return this.userService.login(user)
     }

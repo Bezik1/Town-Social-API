@@ -1,7 +1,8 @@
 export enum Role {
     User = 'User',
     Admin = 'Admin',
-    PublicService = 'Public Service'
+    PublicService = 'Public Service',
+    Anybody = 'anybody'
 }
 
 export enum CoordinateRole {
