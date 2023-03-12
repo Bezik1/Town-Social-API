@@ -254,9 +254,8 @@ export class UsersService {
         }
     }
 
-    public async login(user: UserLogin) {
+    public async login({ email, password, device } : UserLogin) {
         try {
-            const { email, password, device } = user
             const fetchedUser = await this.userModel.findOne({ email })
 
             const ifPassword = compareSync(password, fetchedUser.password)

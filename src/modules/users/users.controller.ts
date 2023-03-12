@@ -72,14 +72,13 @@ export class UsersController {
     }
 
     @Post('login')
-    @Roles(Role.Anybody)
     public async login(@Body() user: UserLogin) {
-        return this.userService.login(user)
+        return await this.userService.login(user)
     }
 
     @Post('changeRole')
     @Roles(Role.Admin)
     public async changeRole(@Body() roleReq: { _id: string, roles: Role[] }) {
-        return this.userService.changeRole(roleReq)
+        return await this.userService.changeRole(roleReq)
     }
 }
