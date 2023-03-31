@@ -21,4 +21,11 @@ Data of this application is monitoring by app build by
 [Electron](https://github.com/electron/electron/) \
 Link: [Doc Admin Panel](https://github.com/Bezik1/doc-admin-panel/)
 
+## :test_tube: Testing JSON Data
+Address: https://doc-api-tiq6.onrender.com/users/login
+
+    "email": "test@wp.pl",
+    "password": "12345678",
+    "device": "12345"
+
 ## :robot: Hosting [Render](https://render.com)
