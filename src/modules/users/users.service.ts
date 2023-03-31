@@ -63,7 +63,7 @@ export class UsersService {
 
             const data = new this.userModel<UserInterface>({
                 username,
-                loggined: loggined,
+                loggined,
                 email,
                 roles: [Role.User],
                 picturePath: '',

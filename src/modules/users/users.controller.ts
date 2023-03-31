@@ -31,6 +31,11 @@ export class UsersController {
         return this.userService.getPhoto(username)
     }
 
+    @Post('login')
+    public async login(@Body() user: UserLogin) {
+        return await this.userService.login(user)
+    }
+
     @Post('ifLoggined')
     public async ifLoggined(@Body() data: { device: string } ) {
         return await this.userService.ifLoggined(data.device)
@@ -60,7 +65,6 @@ export class UsersController {
     }
 
     @Put(':id')
-    //@Roles(Role.Admin)
     public async editUser(@Param('id') id: string, @Body() editUserDto: UserInterface) {
         return await this.userService.editById(id, editUserDto)
     }
@@ -69,11 +73,6 @@ export class UsersController {
     @Roles(Role.Admin)
     public async deleteUser(@Param('id') id: string) {
         return await this.userService.deleteById(id)
-    }
-
-    @Post('login')
-    public async login(@Body() user: UserLogin) {
-        return await this.userService.login(user)
     }
 
     @Post('changeRole')
